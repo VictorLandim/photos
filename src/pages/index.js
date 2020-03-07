@@ -1,21 +1,43 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql } from "gatsby"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/Layout"
+import Gallery from "../containers/Gallery"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+export const pageQuery = graphql`
+  query IndexQuery {
+    allWordpressWpMedia {
+      edges {
+        node {
+          localFile {
+            childImageSharp {
+              sizes(maxWidth: 3000) {
+                ...GatsbyImageSharpSizes
+              }
+            }
+          }
+          date
+          slug
+          title
+          caption
+        }
+      }
+    }
+  }
+`
+
+const IndexPage = props => {
+  const photos = props.data.allWordpressWpMedia.edges.map(
+    e => e.node.localFile.childImageSharp.sizes
+  )
+
+  console.log(photos)
+
+  return (
+    <Layout title="Victor's Pics | Home">
+      <Gallery photos={photos} />
+    </Layout>
+  )
+}
 
 export default IndexPage
