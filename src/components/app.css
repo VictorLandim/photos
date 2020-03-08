@@ -27,9 +27,16 @@ main {
 
 header {
   background-color: var(--black);
+  background: linear-gradient(to left, var(--black), #202020);
   color: var(--gray);
   padding: 30px 50px;
   font-size: 24px;
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    text-align: center;
+  }
 }
 
 footer {
@@ -45,7 +52,6 @@ footer {
 section {
   min-height: 100vh;
 
-  margin: 20px 0;
   background-color: var(--white);
 }
 
