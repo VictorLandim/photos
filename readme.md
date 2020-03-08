@@ -17,3 +17,4 @@ https://photos.victorlandim.com
   - https://codesandbox.io/s/simple-react-lightboxss-39wrb
 - implement sharing
 - implement a unique page for each photo
+- filter and sort by month

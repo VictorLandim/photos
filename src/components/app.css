@@ -19,11 +19,10 @@ body {
 }
 
 main {
-  min-height: 100vh;
   /* problematic! */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
 }
 
 header {
@@ -44,6 +43,8 @@ footer {
 }
 
 section {
+  min-height: 100vh;
+
   margin: 20px 0;
   background-color: var(--white);
 }
