@@ -14,7 +14,10 @@ const Layout = ({ children, title }) => {
 
       <footer>
         {`© ${new Date().getFullYear()}, 💻 with ❤ by`}
-        <a href="https://victorlandim.com">{` ${"∇ictor Landim"}`}</a>
+        <a style={{ marginLeft: "7px" }} href="https://victorlandim.com">
+          ∇ictor Landim
+        </a>
+        .
       </footer>
     </main>
   )

@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect, useMemo } from "react"
 import GalleryComp from "react-photo-gallery"
 import Carousel, { Modal, ModalGateway } from "react-images"
 import Img from "gatsby-image"
+import he from "he"
 
-const Gallery = ({ photos }) => {
-  const [currentImage, setCurrentImage] = useState(0)
-  const [viewerIsOpen, setViewerIsOpen] = useState(false)
+const Gallery = ({ photos, currImage = 0 }) => {
+  const [currentImage, setCurrentImage] = useState(currImage)
+  const [viewerIsOpen, setViewerIsOpen] = useState(currentImage !== 0)
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index)
@@ -25,8 +26,6 @@ const Gallery = ({ photos }) => {
     return columns
   }
 
-  console.log(photos)
-
   const shuffleArray = a => {
     let array = [...a]
 
@@ -38,30 +37,64 @@ const Gallery = ({ photos }) => {
     return array
   }
 
-  const newPhotos = photos
-    .map(e => ({ ...e, srcSet: e.srcSet.split(", ") }))
-    .map(e => {
-      if (Math.random() >= 0.5) {
-        // return { ...e, width: 1, height: 1 }
-      }
-      if (e.aspectRatio > 1) {
-        return { ...e, width: 3, height: 2 }
-        return { ...e, width: 1 * e.aspectRatio, height: 1 }
-      }
+  const processedPhotos = photos
+    .map(e => ({
+      ...e,
+      srcSet: e.srcSet.split(", "),
+      sizes: [e.sizes],
+    }))
 
-      return { ...e, width: 2, height: 3 }
-      return { ...e, width: 0.5 * e.aspectRatio, height: 0.5 }
+    // TODO fix this
+    // .sort((a, b) => {
+    //   const dateA = a.originalName.split(".")[0].replace("t", " ")
+    //   const dateB = b.originalName.split(".")[0].replace("t", " ")
+
+    //   return new Date(dateA) > new Date(dateB)
+    // })
+    .map(e => {
+      // remove invalid HTML properties
+      const { aspectRatio, originalName, ...rest } = e
+
+      return {
+        ...rest,
+      }
     })
+
+  // .map(e => {
+  // if (Math.random() >= 0.5) {
+  //   // return { ...e, width: 1, height: 1 }
+  // }
+  // if (e.aspectRatio > 1) {
+  //   return { ...e, width: 3, height: 2 }
+  //   return { ...e, width: 1 * e.aspectRatio, height: 1 }
+  // }
+  // return { ...e, width: 2, height: 3 }
+  // return { ...e, width: 0.5 * e.aspectRatio, height: 0.5 }
+  // })
+
+  const galleryConfig = useMemo(() => {
+    const isColumn = false
+
+    if (isColumn) {
+      return {
+        direction: "column",
+        column: getColumns,
+      }
+    }
+
+    return {
+      direction: "row",
+      targetRowHeight: 450,
+    }
+  }, [])
+
   return (
-    <>
+    <div>
       <GalleryComp
-        photos={newPhotos}
+        photos={processedPhotos}
         onClick={openLightbox}
-        // columns={getColumns}
-        margin={20}
-        // targetRowHeight="1000px"
-        direction="row"
-        direction="column"
+        margin={10}
+        {...galleryConfig}
         // renderImage={e => <Img {...e.fluid} />}
       />
       <ModalGateway>
@@ -78,7 +111,7 @@ const Gallery = ({ photos }) => {
           </Modal>
         )}
       </ModalGateway>
-    </>
+    </div>
   )
 }
 

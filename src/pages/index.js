@@ -11,15 +11,18 @@ export const pageQuery = graphql`
         node {
           localFile {
             childImageSharp {
-              sizes(maxWidth: 3000) {
-                ...GatsbyImageSharpSizes
+              fluid(maxWidth: 2000) {
+                originalName
+                sizes
+                src
+                srcSet
+                aspectRatio
+                presentationWidth
+                presentationHeight
+                base64
               }
             }
           }
-          date
-          slug
-          title
-          caption
         }
       }
     }
@@ -27,14 +30,18 @@ export const pageQuery = graphql`
 `
 
 const IndexPage = props => {
-  const photos = props.data.allWordpressWpMedia.edges.map(
-    e => e.node.localFile.childImageSharp.sizes
-  )
-
-  console.log(photos)
+  const photos = props.data.allWordpressWpMedia.edges
+    .map(e => ({
+      ...e.node.localFile.childImageSharp.fluid,
+    }))
+    .map(({ presentationWidth, presentationHeight, ...e }) => ({
+      ...e,
+      width: presentationWidth,
+      height: presentationHeight,
+    }))
 
   return (
-    <Layout title="Victor's Pics | Home">
+    <Layout title="Home">
       <Gallery photos={photos} />
     </Layout>
   )
