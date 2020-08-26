@@ -1,10 +1,11 @@
-import React from "react"
-import { graphql } from "gatsby"
+import React, { useEffect } from "react"
+import { graphql, navigate } from "gatsby"
 
 import { Layout } from "../components/Layout"
 import { Home } from "../screens/Home"
 
 import '../sass/base.scss'
+import { chapters } from "../data/chapters"
 
 export const pageQuery = graphql`
   query IndexQuery {
@@ -58,7 +59,13 @@ const IndexPage = props => {
       ...e,
       width: presentationWidth,
       height: presentationHeight,
-    }))
+    }));
+
+  useEffect(() => {
+    if (!chapter) {
+      navigate(`/chapters/innocence`);
+    }
+  }, []);
 
   return (
     <Layout title={chapter || "home"} chapter={chapter}>
