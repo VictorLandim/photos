@@ -1,0 +1,26 @@
+.footer {
+  & {
+    font-size: 11px;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  &__copy {}
+
+  &__contact {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+
+  &__contact-item {
+    font-style: italic;
+    display: block;
+    flex: 1;
+    word-wrap: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

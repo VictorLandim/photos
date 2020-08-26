@@ -1,0 +1,146 @@
+.nav {
+  background-color: var(--white);
+  color: var(--black);
+  border-right: 2px solid currentColor;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--nav-size);
+  height: 100vh;
+  padding: 1.5rem 1rem;
+  padding-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: .3s all ease;
+
+  @media screen and (max-width: 1000px) {
+    z-index: 5;
+    width: 100%;
+    height: calc(100vh - var(--nav-mobile-size));
+    border-right: none;
+    transform: translateY(100%);
+
+    &__check:checked ~ & {
+      // display: flex;
+      transform: translateY(0);
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    position: relative;
+    text-align: center;
+    transition: .3s all;
+    cursor: pointer;
+    margin-bottom: 10rem;
+
+    @media screen and (max-width: 1000px) {
+      margin-bottom: 5rem;
+    }
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    &--first {
+      position: relative;
+      width: 100%;
+    }
+
+    &--second {
+      font-weight: 500;
+      width: 100%;
+      --offset: 1.1rem;
+      position: absolute;
+      left: var(--offset);
+      top: var(--offset);
+      opacity: 0.8;
+      color: var(--white);
+
+      -webkit-text-stroke: 1px var(--black);
+      z-index: 1;
+    }
+  }
+
+  &__subtitle {
+    margin-bottom: 1rem;
+
+    &--experiment {
+      color: var(--gray);
+      cursor: wait;
+    }
+  }
+
+  &__list {
+    padding: 0 2rem;
+  }
+
+  &__list-item {
+    font-size: 0.9rem;
+    position: relative;
+    transition: .3s all ease;
+    padding-bottom: .3rem;
+
+    &::before {
+      content: ':: ';
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &--selected {
+      font-weight: bold;
+      &::before {
+        content: '~~ ';
+      }
+    }
+  }
+
+  &__mobile {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-mobile-size);
+    background: var(--white);
+    z-index: 10;
+    border-top: 2px solid var(--black);
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+
+    h1 {
+      --size: 2.3rem;
+
+      font-size: 1.3rem;
+      border-radius: 100rem;
+      width: var(--size);
+      height: var(--size);
+      border: 1px solid var(--black);
+      box-shadow: 0px 3px 15px 0px rgba($color: #000000, $alpha: 0.2);
+      letter-spacing: 0.4rem !important;
+      margin-bottom: 0;
+    }
+
+    [class*="--second"]{
+      --offset: 0.4rem;
+    }
+
+    @media screen and (max-width: 1000px) {
+      display: flex;
+    }
+  }
+
+  &__mobile-button {
+    font-size: 2rem;
+    cursor: pointer;
+    transform: rotateZ(0);
+    transition: .3s all ease;
+
+    input:checked ~ div & {
+      transform: rotateZ(90deg);
+    }
+  }
+}

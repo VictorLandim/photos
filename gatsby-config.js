@@ -4,8 +4,8 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `Victor's Pics`,
-    description: `-`,
+    title: `Victor Photos`,
+    description: ``,
     author: `@victorlandim`,
   },
   plugins: [
@@ -18,7 +18,9 @@ module.exports = {
       },
     },
     `gatsby-image`,
-    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-transformer-sharp`
+    },
     {
       resolve: `gatsby-plugin-sharp`,
       options: {
@@ -30,11 +32,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `vicotr-landim-pics`,
-        short_name: `victor-landim-pics`,
+        name: `victor-photos`,
+        short_name: `victor-photos`,
         start_url: `/`,
-        background_color: `#202020`,
-        theme_color: `#202020`,
+        background_color: `#333`,
+        theme_color: `#333`,
         display: `minimal-ui`,
         icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
@@ -58,8 +60,6 @@ module.exports = {
         },
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-sass`
   ],
 }

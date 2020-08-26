@@ -1,10 +1,9 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react"
+import React, { useState, useCallback, useMemo } from "react"
 import GalleryComp from "react-photo-gallery"
 import Carousel, { Modal, ModalGateway } from "react-images"
-import Img from "gatsby-image"
-import he from "he"
+import { GalleryImage } from '../components/GalleryImage'
 
-const Gallery = ({ photos, currImage = 0 }) => {
+const Home = ({ photos, currImage = 0 }) => {
   const [currentImage, setCurrentImage] = useState(currImage)
   const [viewerIsOpen, setViewerIsOpen] = useState(currentImage !== 0)
 
@@ -26,31 +25,14 @@ const Gallery = ({ photos, currImage = 0 }) => {
     return columns
   }
 
-  const shuffleArray = a => {
-    let array = [...a]
-
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-
-    return array
-  }
 
   const processedPhotos = photos
+    .map(e => ({ ...e, fluid: e }))
     .map(e => ({
       ...e,
       srcSet: e.srcSet.split(", "),
       sizes: [e.sizes],
     }))
-
-    // TODO fix this
-    // .sort((a, b) => {
-    //   const dateA = a.originalName.split(".")[0].replace("t", " ")
-    //   const dateB = b.originalName.split(".")[0].replace("t", " ")
-
-    //   return new Date(dateA) > new Date(dateB)
-    // })
     .map(e => {
       // remove invalid HTML properties
       const { aspectRatio, originalName, ...rest } = e
@@ -59,6 +41,7 @@ const Gallery = ({ photos, currImage = 0 }) => {
         ...rest,
       }
     })
+
 
   // .map(e => {
   // if (Math.random() >= 0.5) {
@@ -89,13 +72,29 @@ const Gallery = ({ photos, currImage = 0 }) => {
   }, [])
 
   return (
-    <div>
+    <>
       <GalleryComp
         photos={processedPhotos}
         onClick={openLightbox}
         margin={10}
         {...galleryConfig}
-        // renderImage={e => <Img {...e.fluid} />}
+        renderImage={(e) => {
+          const data = {
+            ...e.photo.fluid,
+            width: e.photo.width,
+            height: e.photo.height
+          }
+
+          return (
+            <GalleryImage
+              width={data.width}
+              height={data.height}
+              fluid={data}
+              margin={e.margin}
+              onClick={(x) => e.onClick(x, e)}
+            />
+          )
+        }}
       />
       <ModalGateway>
         {viewerIsOpen && (
@@ -111,8 +110,8 @@ const Gallery = ({ photos, currImage = 0 }) => {
           </Modal>
         )}
       </ModalGateway>
-    </div>
+    </>
   )
 }
 
-export default Gallery
+export { Home }

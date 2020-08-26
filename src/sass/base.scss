@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Code:400,500,600");
+@import url("./util.scss");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+:root {
+  --black: #333;
+  --gray: #eee;
+  --white: #fafafa;
+  --nav-size: 275px;
+  --nav-mobile-size: 60px;
+  --pad: 10px;
+}
+
+::-moz-selection {
+  color: var(--white);
+  background: rgba(#333, 0.75);
+}
+
+::selection {
+  color: var(--white);
+  background: rgba(#333, 0.75);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Fira Code', monospace;
+  background: var(--white);
+  color: var(--black);
+}
+
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+img {
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  /* padding: 20px; */
+  /* padding-bottom: 100px; */
+  /* transition: 0.3s all; */
+}
+
+img:hover {
+  /* transform: scale(1.05); */
+}
+
+ul {
+  list-style-type: none;
+}
+
+.react-images__blanket {
+  // background: rgba(255,255,255, 0.8) !important;
+}
+
+.react-images__header,
+.react-images__footer {
+  background: none !important;
+}
