@@ -101,11 +101,15 @@ const Home = ({ photos, currImage = 0 }) => {
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title,
-              }))}
+              trackProps={{ contain: true }}
+              views={photos.map(x => {
+
+                return ({
+                  ...x,
+                  srcset: x.srcSet,
+                  caption: x.title,
+                })
+              })}
             />
           </Modal>
         )}

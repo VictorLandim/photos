@@ -11,9 +11,14 @@
     padding-top: var(--pad);
 
     @media screen and (max-width: 1000px) {
+      padding-left: 80px;
+      padding-right: 80px;
+      padding-bottom: calc(var(--nav-mobile-size) + var(--pad));
+    }
+
+    @media screen and (max-width: 760px) {
       padding-left: 0px;
       padding-right: 0px;
-      padding-bottom: calc(var(--nav-mobile-size) + var(--pad));
     }
   }
 

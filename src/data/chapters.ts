@@ -1,5 +1,13 @@
 const chapters = [
   {
+    "name": "virus",
+    "date": "May 2020",
+  },
+  {
+    "name": "sun_day",
+    "date": "Feb 2020",
+  },
+  {
     "name": "new()",
     "date": "Feb 2020",
   },
@@ -18,6 +26,10 @@ const chapters = [
   {
     "name": "innocence",
     "date": "Dec 2019",
+  },
+  {
+    "name": "cerrado",
+    "date": "Nov 2019",
   },
 ]
 
