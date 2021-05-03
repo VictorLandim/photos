@@ -63,7 +63,7 @@ const IndexPage = props => {
 
   useEffect(() => {
     if (!chapter) {
-      navigate(`/chapters/innocence`);
+      navigate(`/chapters/sun_day`);
     }
   }, []);
 
